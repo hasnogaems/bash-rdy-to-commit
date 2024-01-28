@@ -43,7 +43,7 @@ void pattern_from_file(char* line_, Flags* flag) {
 void grep(Flags flag, FILE* fp, char* line_, char** argv, int y) {
   // printf("hello?\n");
   int x = 0;
-  int printl;
+  int printl = 0;  // valgrind was barking if this was unitialized
   int c_count = 0;
   int string_counter = 0;
 
@@ -124,5 +124,6 @@ void flag_o(char* line_, char pattern[], Flags flag) {
            line_ + matches[0].rm_so);
     line_ += matches[0].rm_eo;
   }  //первый аргумент это длина паттерна, а второй сдвигает указатель в строке
-     //чтобы от стоял на первом чаре, и потом печатает как раз длину паттерна.
+  //чтобы от стоял на первом чаре, и потом печатает как раз длину паттерна.
+  regfree(&regex);
 }

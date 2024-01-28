@@ -61,3 +61,6 @@ flags:
 debug:
 	gcc -fsanitize=address grep.c parse_flags.c regex.c	
 
+clang:
+	cp ../../materials/linters/.clang-format .clang-format
+	clang-format -n *.c *.h
