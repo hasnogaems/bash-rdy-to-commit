@@ -8,7 +8,7 @@ int open_file_and_i_flag(FILE** fp, Flags* flag, char** argv, int* eflags) {
   // printf("in open_file argv[%d]=%s\n", optind, argv[optind]);
   (*fp) = fopen(argv[optind], "r");  // opening file
   if ((*fp) == NULL) {
-    // printf("Error opening file.\n");
+    //  printf("s21_grep: %s: No such file or directory\n", argv[optind]);
     return 0;  // debug
   }
   // here we store line from our file we grabbed with fgets
@@ -26,7 +26,7 @@ void pattern_from_file(char* line_, Flags* flag) {
   FILE* pt = NULL;
   pt = fopen(optarg, "r");
   if (pt == NULL)
-    printf("in function pattern_file file is not read! optarg=%s", optarg);
+   if(!flag->s) { printf("in function pattern_file file is not read! optarg=%s", optarg);}
   if (pt != NULL) {
     // char string[1024];
     while (fgets(line_, 1024, pt) != NULL) {
@@ -35,7 +35,7 @@ void pattern_from_file(char* line_, Flags* flag) {
       add_pattern(line_, flag);
     }
   } else {
-    printf("s21_grep: %s: No such file or directory\n", optarg);
+ if(!flag->s){   printf("grep: %s: No such file or directory\n", optarg);}
   }
   fclose(pt);
 }
@@ -117,7 +117,7 @@ void flag_o(char* line_, char pattern[], Flags flag) {
   int return_value =
       regcomp(&regex, pattern, REG_EXTENDED | (flag.i ? REG_ICASE : 0));
   if (return_value) {
-    printf("Could not compile regular expression.\n");
+  if(!flag.s) {  printf("Could not compile regular expression.\n");}
   }
   while ((regexec(&regex, line_, 1, matches, 0) == 0)) {
     printf("%.*s\n", (int)(matches[0].rm_eo - matches[0].rm_so),

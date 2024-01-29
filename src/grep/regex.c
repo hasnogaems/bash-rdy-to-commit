@@ -8,7 +8,7 @@ int regex(char pattern[], char line[], Flags flag) {
   int return_value =
       regcomp(&regex, pattern, REG_EXTENDED | (flag.i ? REG_ICASE : 0));
   if (return_value) {
-    printf("Could not compile regular expression.\n");
+   if(!flag.s)  printf("Could not compile regular expression.\n");
   }
 
   return_value = regexec(&regex, line, 0, NULL, 0);

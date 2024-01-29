@@ -20,17 +20,22 @@ int main(int argc, char *argv[]) {
     // printf("Where?\n");
     Flags flag = parse_flags(argc, argv);  // parse flags
     int y = parse_pattern(argc, argv);     // parse pattern
-
+    int error=0;
     while (optind < argc) {
-      if (open_file_and_i_flag(&fp, &flag, argv, &eflags) == 0) {
+      error=open_file_and_i_flag(&fp, &flag, argv, &eflags);
+      if (error == 0) {
         optind++;
         continue;
       }
+      
 
       grep(flag, fp, line_, argv, y);
 
       optind++;
     }
+    if(error==0&&!flag.s){
+        printf("grep: %s: No such file or directory\n", argv[optind-1]);
+      }
     // free(pattern);
     // free(e_ptrns);
     // fclose(fp);
