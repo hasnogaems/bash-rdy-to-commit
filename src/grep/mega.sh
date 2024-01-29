@@ -616,6 +616,9 @@ echo "---------------------------SUMMARY---------------------------------" >> ma
 echo "SUCCESS: $COUNTER_SUCCESS" >> main_grep_report.log
 echo "FAIL: $COUNTER_FAIL" >> main_grep_report.log
 echo "-------------------------------------------------------------------" >> main_grep_report.log
+echo "Test:GVO1S: ❌  Failed
+Test:GCL1M: ❌  Failed
+is normal for linux"
 
 if [ -d logs ]; then
   rm -rf ./logs/
@@ -627,4 +630,4 @@ fi
 
 mv ./*.log ./logs/
 
-#rm *.file lyrics.txt lyrics2.txt
+rm *.file lyrics.txt lyrics2.txt
